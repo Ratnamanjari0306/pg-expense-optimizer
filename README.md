@@ -50,3 +50,31 @@ pg-expense-optimizer/
 ├── manage.py
 ├── .gitignore
 └── README.md
+
+## Screenshots
+
+### Dashboard
+
+![Dashboard 1](screenshots/dashboard1.png)
+
+![Dashboard 2](screenshots/dashboard2.png)
+
+![Dashboard 3](screenshots/dashboard3.png)
+
+### Add Expense
+
+![Add Expense](screenshots/add_expense.png)
+
+### Analytics
+
+![Analytics 1](screenshots/analytics1.png)
+
+![Analytics 2](screenshots/analytics2.png)
+
+![Analytics 3](screenshots/analytics3.png)
+
+### AI Spending Optimizer
+
+![Spending Optimizer 1](screenshots/spending_optimizer1.png)
+
+![Spending Optimizer 2](screenshots/spending_optimizer2.png)
