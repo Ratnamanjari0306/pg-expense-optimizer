@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Set Monthly Budget</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        .navbar {
+            background: #1f2937;
+            color: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 21px;
+        }
+
+        .back-btn {
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .welcome {
+            margin-bottom: 20px;
+        }
+
+        .welcome h2 {
+            margin-bottom: 6px;
+        }
+
+        .welcome p {
+            color: #666;
+        }
+
+        .card {
+            background: white;
+            padding: 28px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .help-text {
+            color: #777;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .error {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 13px;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #1d4ed8;
+        }
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .container {
+                margin-top: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <h1>💰 PG Expense Optimizer</h1>
+
+        <a href="{% url 'dashboard' %}" class="back-btn">
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="welcome">
+
+            <h2>Set Monthly Budget</h2>
+
+            <p>
+                Set a spending limit and track how much of your budget you use.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <div class="field">
+
+                    <label for="{{ form.month.id_for_label }}">
+                        Month
+                    </label>
+
+                    {{ form.month }}
+                    {% if form.month.errors %}
+        <div class="error">
+            {{ form.month.errors }}
+        </div>
+    {% endif %}
+                </div>
+
+
+                <div class="field">
+
+                    <label for="{{ form.amount.id_for_label }}">
+                        Monthly Budget
+                    </label>
+
+                    {{ form.amount }}
+
+                    <div class="help-text">
+                        Example: ₹15,000
+                    </div>
+
+                    {% if form.amount.errors %}
+                        <div class="error">
+                            {{ form.amount.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <button type="submit" class="submit-btn">
+                    Save Monthly Budget
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Expense | PG Expense Optimizer</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #1f2937;
+            color: white;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            font-size: 23px;
+        }
+
+        .back-btn {
+            background: #374151;
+            color: white;
+            text-decoration: none;
+            padding: 9px 16px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #4b5563;
+        }
+
+        /* PAGE */
+
+        .container {
+            width: 90%;
+            max-width: 650px;
+            margin: 35px auto;
+        }
+
+        /* FORM CARD */
+
+        .form-card {
+            background: white;
+            padding: 30px 35px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .form-header {
+            margin-bottom: 25px;
+        }
+
+        .form-header h2 {
+            font-size: 27px;
+            margin-bottom: 6px;
+        }
+
+        .form-header p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* FIELD */
+
+        .field {
+            margin-bottom: 17px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #374151;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37,99,235,0.08);
+        }
+
+        /* RECURRING */
+
+        .recurring-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 5px 0 20px;
+        }
+
+        .recurring-field input {
+            width: 17px;
+            height: 17px;
+        }
+
+        .recurring-field label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #374151;
+        }
+
+        /* ERROR */
+
+        .error-box {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+            padding: 10px 12px;
+            border-radius: 7px;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .error {
+            color: #dc2626;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* BUTTON */
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .submit-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 15px;
+            }
+
+            .navbar h1 {
+                font-size: 18px;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 25px;
+            }
+
+            .form-card {
+                padding: 25px 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+        <h1>💰 PG Expense Optimizer</h1>
+
+        <a href="{% url 'dashboard' %}" class="back-btn">
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <div class="container">
+
+        <div class="form-card">
+
+            <div class="form-header">
+
+                <h2>Add Expense</h2>
+
+                <p>
+                    Enter your expense details below.
+                </p>
+
+            </div>
+
+
+            {% if form.errors %}
+
+                <div class="error-box">
+                    Please check the fields below and try again.
+                </div>
+
+            {% endif %}
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- DATE -->
+
+                <div class="field">
+
+                    <label for="{{ form.date.id_for_label }}">
+                        Date
+                    </label>
+
+                    {{ form.date }}
+
+                    {% if form.date.errors %}
+                        <div class="error">
+                            {{ form.date.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- CATEGORY -->
+
+                <div class="field">
+
+                    <label for="{{ form.category.id_for_label }}">
+                        Category
+                    </label>
+
+                    {{ form.category }}
+
+                    {% if form.category.errors %}
+                        <div class="error">
+                            {{ form.category.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="field">
+
+                    <label for="{{ form.description.id_for_label }}">
+                        Description
+                    </label>
+
+                    {{ form.description }}
+
+                    {% if form.description.errors %}
+                        <div class="error">
+                            {{ form.description.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- AMOUNT -->
+
+                <div class="field">
+
+                    <label for="{{ form.amount.id_for_label }}">
+                        Amount (₹)
+                    </label>
+
+                    {{ form.amount }}
+
+                    {% if form.amount.errors %}
+                        <div class="error">
+                            {{ form.amount.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- PAYMENT METHOD -->
+
+                <div class="field">
+
+                    <label for="{{ form.payment_method.id_for_label }}">
+                        Payment Method
+                    </label>
+
+                    {{ form.payment_method }}
+
+                    {% if form.payment_method.errors %}
+                        <div class="error">
+                            {{ form.payment_method.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- RECURRING -->
+
+                <div class="recurring-field">
+
+                    {{ form.recurring }}
+
+                    <label for="{{ form.recurring.id_for_label }}">
+                        This is a recurring expense
+                    </label>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <button type="submit" class="submit-btn">
+                    + Add Expense
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
